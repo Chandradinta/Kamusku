@@ -1,8 +1,10 @@
-package masterous.si6a.kamusku;
+package masterous.si6a.kamusku.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import masterous.si6a.kamusku.R;
 
 public class MainActivity extends AppCompatActivity {
 
