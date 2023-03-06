@@ -34,6 +34,30 @@ public class KamusHelper {
         databaseHelper.close();
     }
 
+    public ArrayList<Kamus> getAllDataByTitle(String title) {
+        Cursor cursor = database.query(TABLE_KAMUS_NAME, null,
+                KAMUS_TITLE + " LIKE ?",
+                new String[] {"%" + title + "%"},
+                null, null,
+                _ID + " ASC", null);
+        cursor.moveToFirst();
+        ArrayList<Kamus> arrayList = new ArrayList<>();
+        Kamus kamus;
+        if (cursor.getCount() > 0) {
+            do {
+                kamus = new Kamus();
+                kamus.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                kamus.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(KAMUS_TITLE)));
+                kamus.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(KAMUS_DESCRIPTION)));
+
+                arrayList.add(kamus);
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
+    }
+
     public ArrayList<Kamus> getAllData() {
         Cursor cursor = database.query(TABLE_KAMUS_NAME, null, null,
                 null, null, null,
